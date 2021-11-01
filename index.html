@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>iView Challenge</title>
+    <style type="text/css">
+      body,
+      html {
+        width: 100%;
+        height: 100%;
+      }
+      .container {
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+      <h2>iViewLab Challenge</h2>
+      <div class="text-center">
+        <canvas
+          id="animation"
+          width="1200"
+          height="600"
+          style="border: 2px solid #235700; background: #d4d4c4"
+        ></canvas>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var canvas = document.getElementById('animation');
+      var ctx = canvas.getContext('2d');
+      let randomVariable = Math.random();
+
+      //Main ball
+      x = 500;
+      y = 250;
+      vx = randomVariable < .2  ? 2 : randomVariable * 10;
+      vy = randomVariable < .2 ? 2 : randomVariable * 10;
+      r = 30;
+
+      x2 = 100;
+      y2 = 100;
+      r2 = 30;
+
+      x3 = 1100;
+      y3 = 100;
+
+      x4 = 100;
+      y4 = 500;
+
+      x5 = 1100;
+      y5 = 500;
+
+      function createCircle() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (x > canvas.width - r || x < r) {
+          vx = -vx;
+        }
+        if (y > canvas.height - r || y < r) {
+          vy = -vy;
+        }
+
+        //For understandable purpose I wrote for 4 if conditions for each corner balls
+
+        //Logic to find when collision happens
+        if ((x - x2) * (x - x2) + (y - y2) * (y - y2) < 4 * r * r) {
+          x = canvas.width / 2;
+          y = canvas.height / 2;
+        }
+        if ((x - x3) * (x - x3) + (y - y3) * (y - y3) < 4 * r * r) {
+          x = canvas.width / 2;
+          y = canvas.height / 2;
+        }
+        if ((x - x4) * (x - x4) + (y - y4) * (y - y4) < 4 * r * r) {
+          x = canvas.width / 2;
+          y = canvas.height / 2;
+        }
+        if ((x - x5) * (x - x5) + (y - y5) * (y - y5) < 4 * r * r) {
+          x = canvas.width / 2;
+          y = canvas.height / 2;
+        }
+
+        x += vx;
+        y += vy;
+
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, 2 * Math.PI);
+        ctx.fillStyle = 'red';
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+
+        //second ball
+
+        ctx.beginPath();
+        ctx.arc(x2, y2, r, 0, 2 * Math.PI);
+        ctx.fillStyle = 'orange';
+        ctx.fill();
+        ctx.stroke();
+
+        //third ball
+
+        ctx.beginPath();
+        ctx.arc(x3, y3, r, 0, 2 * Math.PI);
+        ctx.fillStyle = 'blue';
+        ctx.fill();
+        ctx.stroke();
+
+        //fourth ball
+
+        r2 = 70;
+        ctx.beginPath();
+        ctx.arc(x4, y4, r, 0, 2 * Math.PI);
+        ctx.fillStyle = 'yellow';
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(x5, y5, r, 0, 2 * Math.PI);
+        ctx.fillStyle = 'black';
+        ctx.fill();
+        ctx.stroke();
+
+        window.requestAnimationFrame(createCircle);
+      }
+      createCircle();
+    </script>
+  </body>
+</html>
